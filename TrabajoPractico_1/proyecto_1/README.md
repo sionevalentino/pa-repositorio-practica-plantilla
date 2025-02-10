@@ -1,7 +1,9 @@
 # Nombre del proyecto (darle un nombre significativo) 
 
 Breve descripción del proyecto:
+
 Ejemplo: “Esta es una aplicación web construida con el framework [Flask](https://flask.palletsprojects.com/). Permite [describir funcionalidades principales].
+
 ---
 ## 🏗Arquitectura General
 
