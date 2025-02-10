@@ -1,2 +1,5 @@
 # Trabajo Práctico Nº1
-Reemplazar el contenido con una breve descripción del Trabajo práctico Nº1
+
+Primer trabajo práctico de la asignatura <Nombre de la asignatura>.
+Este trabajo práctico consta de N proyectos
+

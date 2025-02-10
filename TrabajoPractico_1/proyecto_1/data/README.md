@@ -1,3 +1,3 @@
-En esta carpeta deben guardarse todos los archivos, ya sean de texto, csv, JSON, etc. de los cuales se obtengan datos utilizados en el proyecto, así como los archivos que contengan resultados del mismo o que sirvan para almacenar información.
+En esta carpeta se guardan todos los archivos, ya sean de texto, csv, JSON, etc. de los cuales se obtuvieron datos para realizar el proyecto. También se guardan los archivos que contengan los resultados del proyecto o que sirvan para almacenar información.
 
-No se guardan en esta carpeta los archivos de bases de datos.
+NO se guardan en esta carpeta los archivos de bases de datos.
