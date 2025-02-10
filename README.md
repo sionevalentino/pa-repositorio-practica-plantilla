@@ -1,6 +1,6 @@
 # Repositorio de práctica de `Nombre de la asignatura`
 
-Repositorio inicial para las clases de práctica de `<Nombre de la asignatura>`. En este repositorio se presentarán los trabajos prácticos dados por los docentes durante el cursado
+Repositorio inicial para las clases de práctica de `Nombre de la asignatura`. En este repositorio se almacenarán los códigos de los trabajos prácticos presentados durante el cursado
 
 ## Integrantes del grupo:
     - Apellido y Nombre del primer integrante
