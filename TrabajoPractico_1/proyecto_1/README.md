@@ -1,12 +1,14 @@
 # Nombre del proyecto (darle un nombre significativo) 
 
 Breve descripción del proyecto:
-> Ejemplo: “Esta es una aplicación web construida con el framework [Flask](https://flask.palletsprojects.com/). Permite [describir funcionalidades principales].
+Ejemplo: “Esta es una aplicación web construida con el framework [Flask](https://flask.palletsprojects.com/). Permite [describir funcionalidades principales].
 ---
 ## 🏗Arquitectura General
 
 Explica brevemente cómo está organizado el código (funciones y/o clases)
-El diagrama de relaciones entre clases está disponible en la carpeta `docs`
+
+El diagrama de relaciones entre clases está disponible en la carpeta [docs](./docs) del proyecto.
+
 ---
 ## 📑Dependencias
 
@@ -26,6 +28,7 @@ El diagrama de relaciones entre clases está disponible en la carpeta `docs`
    ```bash
    pip install -r requirements.txt
    ```
+   El archivo `requirements.txt` se encuentran en la carpeta [deps](./deps) del proyecto.
 ---
 
 ## 💻Uso de la aplicación
