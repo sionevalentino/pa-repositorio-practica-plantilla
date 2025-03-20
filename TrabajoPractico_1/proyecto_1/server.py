@@ -1,6 +1,6 @@
 # Ejemplo de aplicación principal en Flask
 from flask import Flask, render_template, request
-from modules.modulo1 import lista_peliculas
+from modules.modulo1 import lista_peliculas, frase_y_pelicula
 from modules.modulo2 import selector_random, creador_opciones, checkear_resultado
 from modules.config import app
 
@@ -19,13 +19,15 @@ def juego():
     score = 0
     while num_frases != 0:
         num_frases -= 1
-        if request.methods == 'GET':
-            frase_random = selector_random(lista_peliculas)
-            opciones = creador_opciones(lista_peliculas, frase_random)
+        frase_random = selector_random(frase_y_pelicula)
+        opciones = creador_opciones(frase_y_pelicula, frase_random)
+        print("w"*100)
+        print(opciones)
+        if request.method == "get":
             respuesta = request.form.get('respuesta')
-            if checkear_resultado(respuesta, lista_peliculas):  
-                score += 1
-    return render_template('juego.html') 
+            if checkear_resultado(respuesta, frase_y_pelicula):  
+                    score += 1
+    return render_template('juego.html',frase_random=frase_random, opciones=opciones, num_frases=num_frases, score=score) 
 
 @app.route('/resultados') #pagina de resultados
 def resultados():

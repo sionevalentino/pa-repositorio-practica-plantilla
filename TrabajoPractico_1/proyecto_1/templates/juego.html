@@ -6,7 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Trivia de peliculas</h1>
+    <p>Elija la pelicula correspondiente a la frase</p>
+    <p>{{ frase_random[0] }}</p>
+    <label for = "respuesta">Respuesta:</label>
+    <select name = "respuesta" id="respuesta" method = "post" required>
+         {% for opcion in opciones %}
+             <option value="{{ opcion }}">{{ opcion }}</option>
+         {% endfor %}
+    </select>
+    <input type="submit" value="Enviar">
     
     
     

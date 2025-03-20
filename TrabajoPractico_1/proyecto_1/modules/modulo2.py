@@ -1,31 +1,14 @@
 #Funciones para la parte de juego de adivinar la frase
 
-from random import choice #funcion para elegir un elemento random de la lista
+from random import sample, choice #funcion para elegir un elemento random de la lista
 from modules.modulo1 import frase_y_pelicula
 from flask import Flask, request
 
-'''def selector_random (lista):
-    frases_usadas = set()
-    frases_disponibles = [frase for frase in lista[1] if frase not in frases_usadas]
-    if not frases_disponibles:  # Si ya se usaron todas las frases
-        return ('no quedan mas frases para jugar')
-
-    frase_random = choice(frases_disponibles)
-    frases_usadas.add(frase_random)
-    return frase_random
-'''
 
 def selector_random (frase_y_pelicula): 
-    frases_usadas = set()
-    frases = set()
+  
+    frase_random = sample(frase_y_pelicula[0], k=1 ) #seleccionar una frase random de la lista de frases
     
-    for elementos in list:
-        frases.add(elementos[0])
-    frase_random = choice(frases)
-    
-    while frase_random in frases_usadas:
-        frase_random = choice(frases)
-    frases_usadas.add(frase_random)
     return frase_random
 
 def creador_opciones(frase_y_pelicula, frase_random):
@@ -39,8 +22,7 @@ def creador_opciones(frase_y_pelicula, frase_random):
     return opciones
 
 def checkear_resultado (respuesta, frase_y_pelicula): #funcion para chequear si la respuesta del usuario es correcta
-    frase_random = selector_random(frase_y_pelicula )
-    for tupla in list:
+    for tupla in frase_y_pelicula:
         if respuesta in tupla and frase_random in tupla:
             return True
         else :
