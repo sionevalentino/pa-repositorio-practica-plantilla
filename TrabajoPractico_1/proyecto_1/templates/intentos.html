@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Trivia de Películas</h1>
+    <p>Ingrese cantidad de intentos (no menos de 3):</p>
+     
+    <form action="{{ url_for('juego') }}" method="post">  <!-- chequear si anda(aca el jugador ingresa el nombre) -->
+        <label for="nombre">Ingrese su nombre:</label><br>
+        <input type="text" id="nombre" name="input_nombre" value=""><br><br>
+
+        <!-- ingresa numero de intentos el jugador-->
+        <label for="num_intentos">Número de intentos:</label>
+        <input type="number" id="num_intentos" name="num_intentos" min="3" required>
+        <input type="submit" value="Iniciar Juego">
+        
+    </form>
+        
+</body>
+</html>

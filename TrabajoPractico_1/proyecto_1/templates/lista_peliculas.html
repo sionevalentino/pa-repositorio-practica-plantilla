@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista de Películas:</h1>
+    <!-- Se recorre la lista de lista_películas y se muestra cada una de ellas, lo hice para que se muestr mas lindo(probar) -->
+    {% for pelicula in lista_peliculas %}
+        <p>{{ pelicula }}</p>
+    {% endfor %}
+
+    <!-- Botón para volver a la página principal -->
+    <form action="{{ url_for('index') }}" method="get"> 
+        <input type="submit" value="Volver al inicio">
+    </form>
+</body>
+</html>
