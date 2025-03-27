@@ -3,11 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Resultados</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Trivia de Películas</h1>
-    <p>Esta es la página de resultados</p>
-    
+    <h1>Resultados de las respuestas</h1>
+    <p><strong>Respuestas correctas:</strong> {{ score }}</p>
+    <p><strong>Puntuación:</strong> {{ score }} de {{ num_intentos }}</p>
+    <p><strong>Porcentaje de aciertos:</strong> {{ porcentaje_aciertos }}%</p>
+
+    <canvas id="graficoResultados" width="400" height="200"></canvas>
+
+    <script>
+        // Datos dinámicos pasados desde Flask
+        const numIntentos = {{ num_intentos | tojson }}; // Número de intentos
+        const score = {{ score | tojson }}; // Puntuación
+        const incorrectas = numIntentos - score;
+
+        // Configuración del gráfico
+        const ctx = document.getElementById('graficoResultados').getContext('2d');
+        const grafico = new Chart(ctx, {
+            type: 'pie', // Tipo de gráfico (puede ser 'bar', 'line', 'pie', etc.)
+            data: {
+                labels: ['Correctas', 'Incorrectas'], // Etiquetas
+                datasets: [{
+                    data: [score, incorrectas], // Datos: correctas e incorrectas
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'], // Colores
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = score + incorrectas;
+                                const porcentaje = ((context.raw / total) * 100).toFixed(2);
+                                return `${context.label}: ${context.raw} (${porcentaje}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

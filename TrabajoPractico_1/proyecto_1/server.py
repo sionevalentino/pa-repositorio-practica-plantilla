@@ -1,8 +1,10 @@
 # Ejemplo de aplicación principal en Flask
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from modules.modulo1 import lista_peliculas, frase_y_pelicula
 from modules.modulo2 import selector_random, creador_opciones, checkear_resultado
 from modules.config import app
+
+app.secret_key = 'clave'
 
 # Página de inicio
 @app.route('/')
@@ -15,23 +17,37 @@ def obtener_lista_pelicula():
 
 @app.route('/juego', methods = ['GET', 'POST']) #pagina de juego
 def juego():
-    num_frases = request.form.get('num_intentos', type=int)
+    num_intentos = request.form.get('num_intentos', type=int)
     score = 0
-    while num_frases != 0:
-        num_frases -= 1
-        frase_random = selector_random(frase_y_pelicula)
-        opciones = creador_opciones(frase_y_pelicula, frase_random)
-        print("w"*100)
-        print(opciones)
-        if request.method == "get":
-            respuesta = request.form.get('respuesta')
-            if checkear_resultado(respuesta, frase_y_pelicula):  
-                    score += 1
-    return render_template('juego.html',frase_random=frase_random, opciones=opciones, num_frases=num_frases, score=score) 
+    frase_random = selector_random(frase_y_pelicula, num_intentos)
+    opciones = []
+    respuestas = []
+    
+    for i in range(num_intentos):
+        
+        opciones.append(creador_opciones(frase_y_pelicula, frase_random[i]))       
+        respuesta = request.form.get(f'respuesta_{i}')
+        print('w'*100)
+        print(respuesta)
+        respuestas.append(respuesta)
+        resultado = checkear_resultado(respuesta, frase_y_pelicula, frase_random[i])
+        print('w'*100)
+        print(resultado)
+        if  checkear_resultado(respuesta, frase_y_pelicula, frase_random[i]):  
+            score += 1
+    session['score'] = score
+    session['num_intentos'] = num_intentos
 
-@app.route('/resultados') #pagina de resultados
+           
+    return render_template('juego.html', frase_random=frase_random, opciones=opciones, num_intentos=num_intentos, score=score), score 
+
+@app.route('/resultados', methods=['GET', 'POST']) #pagina de resultados
 def resultados():
-    return render_template('resultados.html')
+    score = session.get('score')
+    num_intentos = session.get('num_intentos')
+    porcentaje_aciertos = (score / num_intentos) * 100 if num_intentos > 0 else 0
+
+    return render_template('resultados.html', num_intentos=num_intentos, score=score, porcentaje_aciertos=porcentaje_aciertos)
 
 @app.route('/intentos') #pagina de intentos
 def intentos():

@@ -7,22 +7,24 @@
 </head>
 <body>
     <h1>Trivia de peliculas</h1>
-    <p>Elija la pelicula correspondiente a la frase</p>
-    <p>{{ frase_random[0] }}</p>
-    <label for = "respuesta">Respuesta:</label>
-    <select name = "respuesta" id="respuesta" method = "post" required>
-         {% for opcion in opciones %}
-             <option value="{{ opcion }}">{{ opcion }}</option>
-         {% endfor %}
-    </select>
-    <input type="submit" value="Enviar">
-    
-    
-    
-    
-    
-    <form action="{{ url_for('resultados') }}" method="get">
-        <input type="submit" value="Ver resultados">
+    <h2>Elija la pelicula correspondiente a la frase</h2>
+
+    <form action="{{ url_for('resultados') }}" method="post">
+        {% for i in range(num_intentos) %} <!-- num_intentos es la cantidad de preguntas que se van a hacer -->
+
+            <p><strong>Frase:</strong> {{ frase_random[i] }}</p>
+
+            <label for="respuesta_{{ i }}">Respuesta:</label>
+            <select name="respuesta_{{ i }}" id="respuesta_{{ i }}" required>
+                {% for opcion in opciones[i] %} <!-- opciones en una lista de opciones donde una es la correcta-->
+                    <option value="{{ opcion }}">{{ opcion }}</option>                
+                {% endfor %}
+            </select>
+            <br><br>
+
+        {% endfor %}
+  
+        <input type="submit" value="Enviar">
     </form>
     
 </body>
