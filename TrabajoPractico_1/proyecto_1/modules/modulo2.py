@@ -5,9 +5,9 @@ from modules.modulo1 import frase_y_pelicula
 from flask import Flask, request
 
 
-def selector_random (frase_y_pelicula, num_intentos): #funcion para seleccionar una frase random de la lista de frases
-    frase_random = sample(frase_y_pelicula[0], k = num_intentos) #seleccionar una frase random de la lista de frases
-    return frase_random
+def selector_random (frase_y_pelicula): #funcion para seleccionar una frase random de la lista de frases
+    frase_random = sample(frase_y_pelicula[0], k = 1) #seleccionar una frase random de la lista de frases
+    return frase_random[0]
 
 def creador_opciones(frase_y_pelicula, frase_random):
     opciones = []
@@ -17,7 +17,7 @@ def creador_opciones(frase_y_pelicula, frase_random):
             opcion_correcta = frase_y_pelicula[1][frase_y_pelicula[0].index(frase)]
             opciones.append(opcion_correcta)
     shuffle(opciones)
-    return (opciones)
+    return (opciones, opcion_correcta)
 '''
 def checkear_resultado (respuesta, frase_y_pelicula, frase_random): #funcion para chequear si la respuesta del usuario es correcta
     for pelicula in frase_y_pelicula[1]:
@@ -27,10 +27,16 @@ def checkear_resultado (respuesta, frase_y_pelicula, frase_random): #funcion par
         else :
             return False'''
         
-def checkear_resultado (respuesta, frase_y_pelicula, frase_random): #funcion para chequear si la respuesta del usuario es correcta
+'''def checkear_resultado (respuesta, frase_y_pelicula, frase_random): #funcion para chequear si la respuesta del usuario es correcta
     index = frase_y_pelicula[0].index(frase_random)
     pelicula_correcta = frase_y_pelicula[1][index]
     if respuesta == pelicula_correcta:
+        return True
+    else:
+        return False'''
+
+def checkear_resultado (respuesta, opcion_correcta): #funcion para chequear si la respuesta del usuario es correcta
+    if respuesta == opcion_correcta:
         return True
     else:
         return False

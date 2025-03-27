@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trivia de Películas</title>
 </head>
 <body>
-    <h1>Trivia de peliculas</h1>
-    <h2>Elija la pelicula correspondiente a la frase</h2>
+    <h1>Trivia de películas</h1>
+    <h2>Elija la película correspondiente a la frase</h2>
 
-    <form action="{{ url_for('resultados') }}" method="post">
-        {% for i in range(num_intentos) %} <!-- num_intentos es la cantidad de preguntas que se van a hacer -->
+    {% if mensaje %}
+        <p><strong>{{ mensaje }}</strong></p>
+    {% endif %}
 
-            <p><strong>Frase:</strong> {{ frase_random[i] }}</p>
+    {% if session['num_intentos'] is none %}
+        <form action="" method="post">
+            <p><strong>Frase:</strong> {{ frase_random }}</p>
 
-            <label for="respuesta_{{ i }}">Respuesta:</label>
-            <select name="respuesta_{{ i }}" id="respuesta_{{ i }}" required>
-                {% for opcion in opciones[i] %} <!-- opciones en una lista de opciones donde una es la correcta-->
-                    <option value="{{ opcion }}">{{ opcion }}</option>                
+            <label for="respuesta">Respuesta:</label>
+            <select name="respuesta" id="respuesta" required>
+                {% for opcion in opciones %}
+                    <option value="{{ opcion }}">{{ opcion }}</option>
                 {% endfor %}
             </select>
             <br><br>
 
-        {% endfor %}
-  
-        <input type="submit" value="Enviar">
-    </form>
-    
+            <input type="submit" value="Enviar">
+        </form>
+    {% else %}
+        <p>El juego ha terminado. Recarga la página para jugar de nuevo.</p>
+    {% endif %}
 </body>
 </html>
