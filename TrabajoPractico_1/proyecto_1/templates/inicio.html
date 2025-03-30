@@ -9,14 +9,17 @@
 <body>
     <h1>Trivia de Películas</h1>
     <p>Esta es la página de inicio.</p>
-
+    <!-- Boton para acceder la lista de películas -->
     <form action="{{ url_for('obtener_lista_pelicula') }}" method="get">
         <input type="submit" value="Ver nombre de películas">
     </form>
-
+    <!-- Boton para acceder a la trivia -->
     <form action="{{ url_for('intentos') }}" method="get">
         <input type="submit" value="Comenzar Trivia">
     </form>
     
+    <form action="{{ url_for('resultados_globales') }}" method="get">
+        <input type="submit" value="Ver resultados globales">
+    </form>
 </body>
 </html>

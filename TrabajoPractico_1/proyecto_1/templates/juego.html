@@ -9,26 +9,23 @@
     <h1>Trivia de películas</h1>
     <h2>Elija la película correspondiente a la frase</h2>
 
-    {% if mensaje %}
+    {% if current_intento != 0 %}
         <p><strong>{{ mensaje }}</strong></p>
     {% endif %}
+    <!-- Mostrar la frase -->
+    <form action="{{ url_for('juego') }}" method="post">
+        <p><strong>Frase:</strong> {{ session['frase_random'] }}</p>
 
-    {% if session['num_intentos'] is none %}
-        <form action="" method="post">
-            <p><strong>Frase:</strong> {{ frase_random }}</p>
+        <label for="respuesta">Seleccione la película:</label>
+        <select name="respuesta" id="respuesta" required>
+            {% for opcion in session['opciones'] %}     <!-- mostrar sobre las opciones de la frase -->
+                <option value="{{ opcion }}">{{ opcion }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
 
-            <label for="respuesta">Respuesta:</label>
-            <select name="respuesta" id="respuesta" required>
-                {% for opcion in opciones %}
-                    <option value="{{ opcion }}">{{ opcion }}</option>
-                {% endfor %}
-            </select>
-            <br><br>
-
-            <input type="submit" value="Enviar">
-        </form>
-    {% else %}
-        <p>El juego ha terminado. Recarga la página para jugar de nuevo.</p>
-    {% endif %}
+        <button type="submit">Enviar Respuesta</button> <!-- Botón para enviar la respuesta -->
+     
+    </form>
 </body>
 </html>

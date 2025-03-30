@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <h1>Graficas de los resultados</h1>
+    <form action="{{ url_for('index') }}" method="get">
+        <input type="submit" value="Volver al inicio (reiniciar juego)">
+    </form>
+    <!-- Gráfica de Correctas vs Incorrectas -->
+    <h2>Gráfica de Correctas vs Incorrectas</h2>
+    <canvas id="graficoPie" width="400" height="200"></canvas>
+
+    <!-- Gráfica de Historial de Aciertos y Desaciertos -->
+    <h2>Historial de Aciertos y Desaciertos</h2>
+    <canvas id="graficoLineas" width="400" height="200"></canvas>
+
+    <!-- Botón para descargar como PDF -->
+    <button onclick="descargarPDF()">Descargar PDF de grafica</button>
+
+    <script>
+        // Datos dinámicos pasados desde Flask
+        const numIntentos = {{ num_intentos }};
+        const score = {{ score }};
+        const incorrectas = numIntentos - score;
+        const historialAciertos = {{ historial_aciertos | tojson }};
+        const historialDesaciertos = {{ historial_desaciertos | tojson }};
+        const intentos = Array.from({ length: historialAciertos.length }, (_, i) => i + 1);
+
+        // Gráfica de Correctas vs Incorrectas
+        const ctxPie = document.getElementById('graficoPie').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Correctas', 'Incorrectas'],
+                datasets: [{
+                    data: [historialAciertos, historialDesaciertos],
+                    backgroundColor: ['rgba(0, 250, 0, 1)', 'rgba(250, 0, 0, 1)'],
+                    borderColor: ['rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = historialAciertos + historialDesaciertos;
+                                const porcentaje = ((context.raw / total) * 100).toFixed(2);
+                                return `${context.label}: ${context.raw} (${porcentaje}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfica de Historial de Aciertos y Desaciertos
+        const ctxLineas = document.getElementById('graficoLineas').getContext('2d');
+        new Chart(ctxLineas, {
+            type: 'line',
+            data: {
+                labels: intentos,
+                datasets: [
+                    {
+                        label: 'Aciertos',
+                        data: historialAciertos,
+                        borderColor: 'rgba(0, 250, 0, 1)',
+                        backgroundColor: 'rgba(0, 250, 0, 0.2)',
+                        fill: true
+                    },
+                    {
+                        label: 'Desaciertos',
+                        data: historialDesaciertos,
+                        borderColor: 'rgba(250, 0, 0, 1)',
+                        backgroundColor: 'rgba(250, 0, 0, 0.2)',
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Intentos' } },
+                    y: { title: { display: true, text: 'Cantidad' }, beginAtZero: true }
+                }
+            }
+        });
+
+        // Función para descargar la página como PDF
+        async function descargarPDF() {
+            const { jsPDF } = window.jspdf;
+
+            // Crear un nuevo documento PDF
+            const pdf = new jsPDF();
+
+            // Capturar la gráfica de Correctas vs Incorrectas
+            const canvasPie = document.getElementById('graficoPie');
+            const imgPie = await html2canvas(canvasPie).then(canvas => canvas.toDataURL('image/png'));
+
+            // Capturar la gráfica de Historial de Aciertos y Desaciertos
+            const canvasLineas = document.getElementById('graficoLineas');
+            const imgLineas = await html2canvas(canvasLineas).then(canvas => canvas.toDataURL('image/png'));
+
+            // Agregar las imágenes al PDF
+            pdf.text('Resultados de las respuestas', 10, 10);
+            pdf.addImage(imgPie, 'PNG', 10, 20, 180, 100); // Gráfica de Pie
+            pdf.addPage();
+            pdf.text('Historial de Aciertos y Desaciertos', 10, 10);
+            pdf.addImage(imgLineas, 'PNG', 10, 20, 180, 100); // Gráfica de Líneas
+
+            // Descargar el PDF
+            pdf.save('resultados.pdf');
+        }
+    </script>
+</body>
+</html>

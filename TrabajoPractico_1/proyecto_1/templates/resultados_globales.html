@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Resultados Globales</h2>
+    {% for jugador in resultados_globales %}
+        <p>{{ jugador }}</p>
+    {% endfor %}
+    <form action="{{ url_for('index') }}" method="get">
+        <input type="submit" value="Volver al inicio (reiniciar juego)">
+    </form>
+
+    <form action="{{ url_for('graficas') }}" method="get">
+        <input type="submit" value="Ver graficas">
+    </form>
+</body>
+</html>

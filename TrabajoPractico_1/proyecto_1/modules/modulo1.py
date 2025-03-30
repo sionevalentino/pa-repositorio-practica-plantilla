@@ -4,7 +4,7 @@
 
 with open ("TrabajoPractico_1/proyecto_1/data/frases_de_peliculas.txt", "r", encoding='UTF-8') as archivo:
     lista_peliculas = set()
-    frase_y_pelicula = [[], []] #lista de listas	
+    frase_y_pelicula = [[] , []] #lista de listas	
     for renglon in archivo:
         frase, peli= renglon.strip('\n').split(';') #separar frase y pelicula 
         frase_y_pelicula[0].append(frase)
