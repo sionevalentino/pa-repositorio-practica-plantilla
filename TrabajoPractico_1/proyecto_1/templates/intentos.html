@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Trivia de Películas</h1>
-    <p>Ingrese su nombre y la cantidad de intentos (mínimo 3):</p>
+    <h3>Ingrese su nombre y la cantidad de intentos (mínimo 3):</h3>
      
     <form action="{{ url_for('intentos') }}" method="post"> <!-- Enviar datos al endpoint 'intentos' -->
         <!-- Campo para ingresar el nombre -->

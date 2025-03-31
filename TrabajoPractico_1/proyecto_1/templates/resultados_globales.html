@@ -3,19 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Resultados Globales</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h2>Resultados Globales</h2>
-    {% for jugador in resultados_globales %}
-        <p>{{ jugador }}</p>
-    {% endfor %}
+    <h1>Resultados Globales</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Aciertos</th>
+                <th>Intentos</th>
+                <th>Porcentaje de Aciertos</th>
+                <th>Fecha y Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultado in resultados_globales %}
+            <tr>
+                <td>{{ resultado.nombre }}</td>
+                <td>{{ resultado.score }}</td>
+                <td>{{ resultado.num_intentos }}</td>
+                <td>{{ resultado.porcentaje_aciertos }}%</td>
+                <td>{{ resultado.fecha_hora }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <form action="{{ url_for('index') }}" method="get">
-        <input type="submit" value="Volver al inicio (reiniciar juego)">
+        <button type="submit">Volver al Inicio</button>
     </form>
-
     <form action="{{ url_for('graficas') }}" method="get">
-        <input type="submit" value="Ver graficas">
+        <button type="submit">Ver graficas globales</button>
     </form>
 </body>
 </html>

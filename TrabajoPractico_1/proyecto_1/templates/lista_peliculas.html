@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Lista de Películas:</h1>
+    <h1 >Lista de Películas:</h1>
     <!-- Se recorre la lista de lista_películas y se muestra cada una de ellas, lo hice para que se muestr mas lindo(probar) -->
     {% for pelicula in lista_peliculas %}
-        <p>{{ pelicula }}</p>
+        <h3>{{ pelicula }}</h3>
     {% endfor %}
 
     <!-- Botón para volver a la página principal -->

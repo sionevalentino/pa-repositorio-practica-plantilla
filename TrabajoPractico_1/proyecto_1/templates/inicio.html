@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Trivia de Películas</h1>
-    <p>Esta es la página de inicio.</p>
+    
+    
     <!-- Boton para acceder la lista de películas -->
     <form action="{{ url_for('obtener_lista_pelicula') }}" method="get">
         <input type="submit" value="Ver nombre de películas">
@@ -21,5 +22,16 @@
     <form action="{{ url_for('resultados_globales') }}" method="get">
         <input type="submit" value="Ver resultados globales">
     </form>
+    <h6 class="explicacion">
+        Bienvenido a la Trivia de Películas. 
+        Ingresa tu nombre y la cantidad de intentos para comenzar. 
+        En cada ronda, se te mostrará una frase de una película junto con varias opciones.
+        Selecciona la película correcta y envía tu respuesta.
+        Recibirás un mensaje indicando si acertaste o no, y el juego continuará hasta completar 
+        todos los intentos. Al finalizar, podrás ver tus resultados, comparar tu desempeño con otros jugadores y
+        explorar gráficas de los resultados acumulados.
+    </h6>
+
+
 </body>
 </html>

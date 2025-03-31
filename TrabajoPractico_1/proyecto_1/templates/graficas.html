@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Graficas de los resultados</h1>
@@ -32,6 +33,9 @@
         const historialAciertos = {{ historial_aciertos | tojson }};
         const historialDesaciertos = {{ historial_desaciertos | tojson }};
         const intentos = Array.from({ length: historialAciertos.length }, (_, i) => i + 1);
+        const fechas = {{ fechas | tojson }};
+        const aciertos = {{ aciertos | tojson }};
+        const desaciertos = {{ desaciertos | tojson }};
 
         // Gráfica de Correctas vs Incorrectas
         const ctxPie = document.getElementById('graficoPie').getContext('2d');
@@ -65,45 +69,45 @@
 
         // Gráfica de Historial de Aciertos y Desaciertos
         const ctxLineas = document.getElementById('graficoLineas').getContext('2d');
-        new Chart(ctxLineas, {
-            type: 'line',
-            data: {
-                labels: intentos,
-                datasets: [
-                    {
-                        label: 'Aciertos',
-                        data: historialAciertos,
-                        borderColor: 'rgba(0, 250, 0, 1)',
-                        backgroundColor: 'rgba(0, 250, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Desaciertos',
-                        data: historialDesaciertos,
-                        borderColor: 'rgba(250, 0, 0, 1)',
-                        backgroundColor: 'rgba(250, 0, 0, 0.2)',
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.raw}`;
-                            }
+    new Chart(ctxLineas, {
+        type: 'line',
+        data: {
+            labels: fechas, // Fechas en el eje X
+            datasets: [
+                {
+                    label: 'Aciertos',
+                    data: aciertos,
+                    borderColor: 'rgba(0, 250, 0, 1)',
+                    backgroundColor: 'rgba(0, 250, 0, 0.2)',
+                    fill: true
+                },
+                {
+                    label: 'Desaciertos',
+                    data: desaciertos,
+                    borderColor: 'rgba(250, 0, 0, 1)',
+                    backgroundColor: 'rgba(250, 0, 0, 0.2)',
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}`;
                         }
                     }
-                },
-                scales: {
-                    x: { title: { display: true, text: 'Intentos' } },
-                    y: { title: { display: true, text: 'Cantidad' }, beginAtZero: true }
                 }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Fechas' } },
+                y: { title: { display: true, text: 'Cantidad' }, beginAtZero: true }
             }
-        });
+        }
+    });
 
         // Función para descargar la página como PDF
         async function descargarPDF() {

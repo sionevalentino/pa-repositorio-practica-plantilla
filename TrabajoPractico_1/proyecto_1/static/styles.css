@@ -1,0 +1,130 @@
+/* Estilo general para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Encabezados */
+h1, h2, h3 {
+    text-align: center;
+    color: #444;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+h2 {
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+/* Tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botones */
+button, input[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px auto;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Formularios */
+form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+form input, form select {
+    padding: 10px;
+    margin: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Gráficas */
+canvas {
+    display: block;
+    margin: 20px auto;
+    max-width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilo para el cuadro de explicación */
+.explicacion {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    padding: 15px;
+    background-color: #6b9dfa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    color: #272727;
+    line-height: 1.5;
+}

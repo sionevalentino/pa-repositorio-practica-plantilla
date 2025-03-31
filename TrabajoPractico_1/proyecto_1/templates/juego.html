@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia de Películas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Trivia de películas</h1>
-    <h2>Elija la película correspondiente a la frase</h2>
+    <h3>Elija la película correspondiente a la frase</h3>
 
     {% if current_intento != 0 %}
-        <p><strong>{{ mensaje }}</strong></p>
+        <h3><strong>{{ mensaje }}</strong></h3>
     {% endif %}
     <!-- Mostrar la frase -->
     <form action="{{ url_for('juego') }}" method="post">
-        <p><strong>Frase:</strong> {{ session['frase_random'] }}</p>
+        <h3><strong>Frase:</strong> {{ session['frase_random'] }}</h3>
 
         <label for="respuesta">Seleccione la película:</label>
         <select name="respuesta" id="respuesta" required>

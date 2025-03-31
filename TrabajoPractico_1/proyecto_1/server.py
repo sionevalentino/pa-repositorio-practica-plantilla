@@ -92,24 +92,32 @@ def juego():
 
         return redirect(url_for('juego'))  # Redirige al siguiente intento
 
-    return render_template('juego.html', mensaje=session['mensaje'])
+    return render_template('juego.html', mensaje=session['mensaje'], current_intento=current_intento)
 
 @app.route('/resultados', methods=['GET', 'POST']) #pagina de resultados
 def resultados():
     nombre_usuario = session.get('nombre_usuario')
     fecha_hora = session.get('fecha_hora')
-    historial_aciertos = session.get('historial_aciertos')
-    historial_desaciertos = session.get('historial_desaciertos')
     score = session.get('score')
     num_intentos = session.get('num_intentos')
     porcentaje_aciertos = format((score / num_intentos) * 100, '.1f')
     
+    # creamos la session para la primera vez que se corre
     if 'resultados_globales' not in session:
-        session['resultados_globales'] = ['Nombre    Score/Intentos   Fecha y hora']        
-    session['resultados_globales'].append(f'{nombre_usuario}   {score}/{num_intentos}   {fecha_hora}')
-    
-    
-    return render_template('resultados.html', historial_aciertos=historial_aciertos, historial_desaciertos=historial_desaciertos, porcentaje_aciertos=porcentaje_aciertos, score=score, num_intentos=num_intentos)
+        session['resultados_globales'] = []
+
+    # se guardan los resultados globales en session
+    resultados_globales = session['resultados_globales']
+    resultados_globales.append({
+        'nombre': nombre_usuario,
+        'score': score,
+        'num_intentos': num_intentos,
+        'fecha_hora': fecha_hora,
+        'porcentaje_aciertos': porcentaje_aciertos
+    })
+    session['resultados_globales'] = resultados_globales
+
+    return render_template('resultados.html', resultados_globales = resultados_globales, score=score, porcentaje_aciertos=porcentaje_aciertos, num_intentos=num_intentos)
     
 @app.route('/graficas', methods=['GET']) #pagina de graficas
 def graficas():
@@ -118,14 +126,29 @@ def graficas():
     historial_aciertos = session.get('historial_aciertos')
     historial_desaciertos = session.get('historial_desaciertos')
     score = session.get('score')
-    num_intentos = session.get('num_intentos') #PARA QUE USARIAS SCORE E INTENTOS EN GRAFICAS GLOBALES?
+    num_intentos = session.get('num_intentos')
 
-    return render_template('graficas.html',score=score, resultados_globales=resultados_globales, historial_aciertos=historial_aciertos, historial_desaciertos=historial_desaciertos, num_intentos=num_intentos)
+    datos_por_fecha = {}
+    for resultado in resultados_globales:
+        fecha = resultado['fecha_hora'].split(' ')[0]  # Extraer solo la fecha (sin hora)
+        if fecha not in datos_por_fecha:
+            datos_por_fecha[fecha] = {'aciertos': 0, 'desaciertos': 0}
+        datos_por_fecha[fecha]['aciertos'] += int(resultado['score'])
+        datos_por_fecha[fecha]['desaciertos'] += int(resultado['num_intentos']) - int(resultado['score'])
+
+    # Ordenar las fechas
+    fechas = sorted(datos_por_fecha.keys())
+    aciertos = [datos_por_fecha[fecha]['aciertos'] for fecha in fechas]
+    desaciertos = [datos_por_fecha[fecha]['desaciertos'] for fecha in fechas]
+    return render_template('graficas.html', fechas = fechas, aciertos = aciertos, desaciertos = desaciertos, score=score, resultados_globales=resultados_globales, historial_aciertos=historial_aciertos, historial_desaciertos=historial_desaciertos, num_intentos=num_intentos)
 
 @app.route('/resultados_globales', methods=['GET', 'POST'])
 def resultados_globales():
+    # Obtener los resultados globales desde la sesión
     resultados_globales = session.get('resultados_globales', [])
-    return render_template('resultados_globales.html', resultados_globales=resultados_globales )
+    
+    # Pasar la lista de resultados a la plantilla
+    return render_template('resultados_globales.html', resultados_globales=resultados_globales)
     
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
