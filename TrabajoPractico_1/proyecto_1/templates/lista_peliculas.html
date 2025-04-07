@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icono_2.ico') }}" type="image/x-icon">
 </head>
 <body>
     <h1 >Lista de Películas:</h1>
     <!-- Se recorre la lista de lista_películas y se muestra cada una de ellas, lo hice para que se muestr mas lindo(probar) -->
     {% for pelicula in lista_peliculas %}
-        <h3>{{ pelicula }}</h3>
+        <h3>{{ loop.index }}. {{ pelicula }}</h3>
     {% endfor %}
 
     <!-- Botón para volver a la página principal -->
