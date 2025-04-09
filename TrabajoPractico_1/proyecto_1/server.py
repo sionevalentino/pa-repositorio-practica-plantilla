@@ -1,12 +1,13 @@
 
 from flask import Flask, render_template, request, session, redirect, url_for
-from modules.modulo1 import lista_peliculas, frase_y_pelicula
+from modules.modulo1 import crear_lista_peliculas
 from modules.modulo2 import selector_random, creador_opciones
 from modules.config import app
 from datetime import datetime
 
 app.secret_key = 'clave'
-
+archivo = "TrabajoPractico_1/proyecto_1/data/frases_de_peliculas.txt"
+lista_peliculas, frase_y_pelicula = crear_lista_peliculas(archivo) #creo la lista de peliculas y la lista de frases y peliculas
 # pagina de inicio
 @app.route('/')
 def index():
@@ -52,7 +53,8 @@ def juego():
     
     #Para el primer intento
     if 'frase_random' not in session:
-        session['frase_random'] = selector_random(frase_y_pelicula)
+        frase_random = selector_random(frase_y_pelicula)
+        session['frase_random'] = frase_random
         session['opciones'] = creador_opciones(frase_y_pelicula, frase_random)[0]
         session['opcion_correcta'] = creador_opciones(frase_y_pelicula, frase_random)[1]
         session['mensaje'] = ''

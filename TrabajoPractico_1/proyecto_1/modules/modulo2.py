@@ -1,7 +1,6 @@
 #Funciones para la parte de juego de adivinar la frase
 
 from random import sample, choice, shuffle 
-from modules.modulo1 import frase_y_pelicula
 from flask import Flask, request
 
 
