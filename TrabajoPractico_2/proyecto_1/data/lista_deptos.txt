@@ -1,0 +1,11 @@
+Matemáticas,Luis,Fernández,Álgebra,Cálculo Diferencial
+Física,Clara,Rodríguez,Física Clásica,Física Cuántica
+Química,Miguel,García,Química Orgánica,Química Inorgánica
+Biología,Sofía,López,Biología Molecular,Genética
+Historia,Andrés,Morales,Historia Antigua,Historia Contemporánea
+Derecho,Elena,Martínez,Derecho Penal,Derecho Civil
+Ingeniería,Javier,Pérez,Ingeniería de Software,Ingeniería Mecánica
+Informática,Laura,Gómez,Programación,Bases de Datos
+Agropecuaria,Julian,Caruso,Instalaciones Agropecuarias
+Panaderia,Julian,Caruso,Facturas
+Albañileria,Agustin,Rohrr,Paredes

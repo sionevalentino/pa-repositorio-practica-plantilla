@@ -53,7 +53,7 @@ def juego():
     #Para el primer intento
     if 'frase_random' not in session:
         session['frase_random'] = selector_random(frase_y_pelicula)
-        session['opciones'] = creador_opciones(frase_y_pelicula, frase_random)[0]
+        session['opciones'] = creador_opciones(frase_y_pelicula, session['frase_random'])[0]
         session['opcion_correcta'] = creador_opciones(frase_y_pelicula, frase_random)[1]
         session['mensaje'] = ''
     

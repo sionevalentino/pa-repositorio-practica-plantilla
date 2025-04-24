@@ -1,0 +1,20 @@
+Álgebra,Luis,Fernández,98765432
+Cálculo Diferencial,Luis,Fernández,98765432
+Física Clásica,Clara,Rodríguez,87654321
+Física Cuántica,Ricardo,Ortiz,37654321
+Química Orgánica,Miguel,García,76543210
+Química Inorgánica,Daniela,Suárez,55432109
+Biología Molecular,Sofía,López,65432109,Paula,Ramírez,00998877
+Genética,Sofía,López,65432109
+Historia Antigua,Andrés,Morales,54321098
+Historia Contemporánea,Andrés,Morales,54321098
+Derecho Penal,Elena,Martínez,43210987
+Derecho Civil,Elena,Martínez,43210987
+Ingeniería de Software,Javier,Pérez,32109876
+Ingeniería Mecánica,Héctor,Vargas,64321098
+Programación,Laura,Gómez,21098765
+Bases de Datos,Fernando,Castro,19876543
+Instalaciones Agropecuarias,Julian,Caruso,45928378
+Cunicultura,Julian,Caruso,45928378
+Facturas,Julian,Caruso,45928378
+Paredes,Julian,Caruso,45928378,Gonzalo,Rohrr,45946721
